@@ -4,22 +4,20 @@ import java.time.LocalDate;
 
 public class Cheque {
     private Long nroCheque;
-    private CuentaAhorro cuenta;
+    private CuentaCte cuenta;
     private LocalDate fechaEmision;
     private Double monto;
-    protected static Long nroChequeautoIncremental = 0L;
-
+    private static Long nroChequeautoIncremental = 0L;
 
     public Cheque() {
         this.nroCheque = getNroChequeautoIncremental();
     }
-    public Cheque(CuentaAhorro cuenta, LocalDate fechaEmision, Double monto) {
+    public Cheque(CuentaCte cuenta, LocalDate fechaEmision, Double monto) {
         this.nroCheque = getNroChequeautoIncremental();
         this.cuenta = cuenta;
         this.fechaEmision = fechaEmision;
         this.monto = monto;
     }
-
     private static Long getNroChequeautoIncremental(){
         nroChequeautoIncremental ++;
         return nroChequeautoIncremental;
@@ -33,11 +31,11 @@ public class Cheque {
         this.nroCheque = nroCheque;
     }
 
-    public CuentaAhorro getCuenta() {
+    public CuentaCte getCuenta() {
         return cuenta;
     }
 
-    public void setCuenta(CuentaAhorro cuenta) {
+    public void setCuenta(CuentaCte cuenta) {
         this.cuenta = cuenta;
     }
 
@@ -59,5 +57,9 @@ public class Cheque {
 
     public static void setNroChequeautoIncremental(Long nroChequeautoIncremental) {
         Cheque.nroChequeautoIncremental = nroChequeautoIncremental;
+    }
+    @Override
+    public String toString(){
+        return this.nroCheque + " - " + getFechaEmision() + " - Monto: " + this.getMonto();
     }
 }

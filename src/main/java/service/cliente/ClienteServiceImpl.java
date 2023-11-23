@@ -3,12 +3,11 @@ package service.cliente;
 import model.*;
 import service.cuenta.CuentaService;
 import service.cuenta.CuentaServiceImpl;
-import service.inputService.InputService;
+import input.InputService;
 import service.menu.banco.MenuBancoServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class ClienteServiceImpl implements ClienteService {
 
@@ -71,7 +70,7 @@ public class ClienteServiceImpl implements ClienteService {
                 Moneda moneda = Moneda.valueOf(opc);
                 System.out.println("Ingrese descubierto:");
                 Double descubierto = Double.parseDouble(scanner.nextLine());
-                CuentaAhorro cuenta = cuentaService.abrirCuentaCte(cliente, moneda, descubierto);
+                CuentaCte cuenta = cuentaService.abrirCuentaCte(cliente, moneda, descubierto);
                 cliente.getCuentas().add(cuenta);
                 ok = false;
             } catch (NullPointerException g){
@@ -94,7 +93,6 @@ public class ClienteServiceImpl implements ClienteService {
         } else {
             for (Cuenta cuenta : cuentas) {
                 System.out.println(cuenta);
-                System.out.println(MenuBancoServiceImpl.DIVISION);
             }
         }
         return cuentas;

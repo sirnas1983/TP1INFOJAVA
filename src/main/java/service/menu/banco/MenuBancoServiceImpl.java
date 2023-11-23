@@ -4,7 +4,7 @@ import model.Banco;
 import model.Cliente;
 import service.banco.BancoService;
 import service.banco.BancoServiceImpl;
-import service.inputService.InputService;
+import input.InputService;
 import service.cliente.ClienteService;
 import service.cliente.ClienteServiceImpl;
 import service.menu.cliente.MenuClienteImpl;
@@ -56,7 +56,7 @@ public class MenuBancoServiceImpl implements MenuBancoService{
                     bancoService.getListaClientes();
                     break;
                 case "2":
-                    bancoService.getListaCuentas();
+                    bancoService.verCuentas();
                     break;
                 case "3":
                     Cliente cliente = clienteService.altaCliente();
@@ -66,9 +66,11 @@ public class MenuBancoServiceImpl implements MenuBancoService{
                     menuCliente.operarConCliente();
                     break;
                 case "5":
+                    bancoService.verCuentas();
                     menuCuenta.operarConCuenta();
                     break;
                 case "6":
+                    bancoService.exportarCuentasACsv();
             }
         } while(!opc.equals("0"));
     }

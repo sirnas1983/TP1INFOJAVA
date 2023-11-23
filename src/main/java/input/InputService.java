@@ -1,4 +1,4 @@
-package service.inputService;
+package input;
 
 import java.util.Scanner;
 

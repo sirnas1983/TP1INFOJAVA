@@ -11,6 +11,7 @@ public interface BancoService {
     List<Cliente> getClienteByDni(int dni);
     void altaCliente(Cliente cliente);
     void verCuentas();
+    void exportarCuentasACsv();
     Banco getBanco();
 
 

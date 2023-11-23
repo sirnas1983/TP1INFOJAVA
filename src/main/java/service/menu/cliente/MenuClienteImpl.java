@@ -4,18 +4,23 @@ import model.Cliente;
 import service.banco.BancoService;
 import service.cliente.ClienteService;
 import service.cliente.ClienteServiceImpl;
-import service.inputService.InputService;
+import input.InputService;
 import service.menu.banco.MenuBancoServiceImpl;
 import service.menu.cuenta.MenuCuenta;
 import service.menu.cuenta.MenuCuentaImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuClienteImpl implements MenuCliente{
 
     private Scanner scanner;
-    private final String TITULO = "Ingrese opcion deseada:";
+    private final String TITULO = "MENU CLIENTE";
+    public static final String SELECCION_TEMPLATE = "Ingrese identificador para operar:";
+    public static final String SIN_COINCIDENCIAS_TEMPLATE ="No hay coincidencias para ese ID";
+    public static final String SIN_CLIENTES_TEMPLATE ="No hay clientes cargados";
+
     private BancoService bancoService;
 
     public MenuClienteImpl(BancoService bancoService){
@@ -27,15 +32,19 @@ public class MenuClienteImpl implements MenuCliente{
     @Override
     public void operarConCliente() {
         bancoService.getListaClientes();
-        System.out.println(MenuBancoServiceImpl.DIVISION);
-        System.out.println("Ingrese numero de DNI para operar:");
-        int dni = Integer.parseInt(scanner.nextLine());
-        List<Cliente> clientes = bancoService.getClienteByDni(dni);
-
-        if (!clientes.isEmpty()){
-            menuCliente(clientes.get(0));
+        HashMap<Long, Cliente> clientes = bancoService.getBanco().getClientes();
+        if (clientes.isEmpty()){
+            System.out.println(SIN_CLIENTES_TEMPLATE);
         } else {
-            System.out.println("No hay clientes con ese DNI");
+            System.out.println(MenuBancoServiceImpl.DIVISION);
+            System.out.println(SELECCION_TEMPLATE);
+            int dni = Integer.parseInt(scanner.nextLine());
+            List<Cliente> cliente = bancoService.getClienteByDni(dni);
+            if (!cliente.isEmpty()) {
+                menuCliente(cliente.get(0));
+            } else {
+                System.out.println(SIN_COINCIDENCIAS_TEMPLATE);
+            }
         }
     }
 
@@ -51,7 +60,7 @@ public class MenuClienteImpl implements MenuCliente{
             System.out.println("2- Operar con cuenta");
             System.out.println("3- Abrir caja de ahorro");
             System.out.println("4- Abrir cuenta corriente");
-            System.out.println("0- Salir");
+            System.out.println("0- Volver al menu anterior");
             System.out.println(MenuBancoServiceImpl.DIVISION);
             System.out.println("Seleccione una opcion:");
             opc = scanner.nextLine();
