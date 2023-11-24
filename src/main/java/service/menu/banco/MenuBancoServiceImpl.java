@@ -1,7 +1,6 @@
 package service.menu.banco;
 
 import model.Banco;
-import model.Cliente;
 import service.banco.BancoService;
 import service.banco.BancoServiceImpl;
 import input.InputService;
@@ -59,8 +58,7 @@ public class MenuBancoServiceImpl implements MenuBancoService{
                     bancoService.verCuentas();
                     break;
                 case "3":
-                    Cliente cliente = clienteService.altaCliente();
-                    bancoService.altaCliente(cliente);
+                    clienteService.generarCliente();
                     break;
                 case "4":
                     menuCliente.operarConCliente();

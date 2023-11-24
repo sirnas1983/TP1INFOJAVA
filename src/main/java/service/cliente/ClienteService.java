@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClienteService {
 
-    Cliente altaCliente();
+    void generarCliente();
 
     void abrirCuenta(Cliente cliente);
 

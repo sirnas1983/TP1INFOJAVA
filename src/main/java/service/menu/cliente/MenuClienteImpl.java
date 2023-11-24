@@ -27,8 +27,6 @@ public class MenuClienteImpl implements MenuCliente{
         this.scanner = InputService.getScanner();
         this.bancoService = bancoService;
     }
-
-
     @Override
     public void operarConCliente() {
         bancoService.getListaClientes();

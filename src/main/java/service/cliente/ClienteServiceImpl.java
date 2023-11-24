@@ -1,6 +1,8 @@
 package service.cliente;
 
 import model.*;
+import service.banco.BancoService;
+import service.banco.BancoServiceImpl;
 import service.cuenta.CuentaService;
 import service.cuenta.CuentaServiceImpl;
 import input.InputService;
@@ -13,13 +15,17 @@ public class ClienteServiceImpl implements ClienteService {
 
 
     private Scanner scanner;
+    public static String INGRESE_MONEDA_TEMPLATE = "Ingrese una moneda (PESO - DOLAR):";
+    public static String MONEDA_NO_VALIDA_TEMPLATE = "Moneda no valida, intente nuevamente";
     private Banco sucursal;
+    private BancoService bancoService;
     public ClienteServiceImpl(Banco banco){
         this.scanner = InputService.getScanner();
         this.sucursal = banco;
+        this.bancoService = new BancoServiceImpl(banco);
     }
     @Override
-    public Cliente altaCliente() {
+    public void generarCliente() {
         try {
             System.out.println("ALTA DE CLIENTE");
             System.out.println(MenuBancoServiceImpl.DIVISION);
@@ -32,12 +38,11 @@ public class ClienteServiceImpl implements ClienteService {
             System.out.println("Ingrese DNI:");
             int dni = Integer.parseInt(this.scanner.nextLine());
             System.out.println(MenuBancoServiceImpl.DIVISION);
-            return new Cliente(nombre, apellido, domicilio, dni);
+            bancoService.registrarCliente(new Cliente(nombre, apellido, domicilio, dni));
         } catch (Exception e){
             System.out.println("Error en generación de usuario");
             System.out.println("Error: " + e.toString());
             System.out.println(MenuBancoServiceImpl.DIVISION);
-            return null;
         }
     }
 
@@ -46,7 +51,7 @@ public class ClienteServiceImpl implements ClienteService {
         CuentaService cuentaService = new CuentaServiceImpl(this.sucursal);
         boolean ok = true;
         do {
-            System.out.println("Ingrese una moneda (PESO - DOLAR): ");
+            System.out.println(INGRESE_MONEDA_TEMPLATE);
             String opc = scanner.nextLine().toUpperCase();
             try{
                 Moneda moneda = Moneda.valueOf(opc);
@@ -54,7 +59,7 @@ public class ClienteServiceImpl implements ClienteService {
                 cliente.getCuentas().add(cuenta);
                 ok = false;
             } catch (IllegalArgumentException e){
-                System.out.println("Moneda no valida, intente nuevamente");
+                System.out.println(MONEDA_NO_VALIDA_TEMPLATE);
             }
         } while (ok);
     }
@@ -64,7 +69,7 @@ public class ClienteServiceImpl implements ClienteService {
         CuentaService cuentaService = new CuentaServiceImpl(this.sucursal);
         boolean ok = true;
         do {
-            System.out.println("Ingrese una moneda (PESO - DOLAR): ");
+            System.out.println(INGRESE_MONEDA_TEMPLATE);
             String opc = scanner.nextLine().toUpperCase();
             try {
                 Moneda moneda = Moneda.valueOf(opc);
@@ -78,7 +83,7 @@ public class ClienteServiceImpl implements ClienteService {
             } catch (NumberFormatException f){
                 System.out.println("Descubierto invalido");
             } catch (IllegalArgumentException e){
-                System.out.println("Moneda no valida, intente nuevamente");
+                System.out.println(MONEDA_NO_VALIDA_TEMPLATE);
             }
         } while (ok);
     }
