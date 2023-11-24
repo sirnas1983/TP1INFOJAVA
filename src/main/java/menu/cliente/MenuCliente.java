@@ -1,4 +1,4 @@
-package service.menu.cliente;
+package menu.cliente;
 
 import model.Cliente;
 

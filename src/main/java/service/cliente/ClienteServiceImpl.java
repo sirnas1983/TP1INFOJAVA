@@ -6,7 +6,7 @@ import service.banco.BancoServiceImpl;
 import service.cuenta.CuentaService;
 import service.cuenta.CuentaServiceImpl;
 import input.InputService;
-import service.menu.banco.MenuBancoServiceImpl;
+import menu.banco.MenuBancoServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;

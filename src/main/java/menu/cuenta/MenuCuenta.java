@@ -1,4 +1,4 @@
-package service.menu.cuenta;
+package menu.cuenta;
 
 import model.Cliente;
 import model.Cuenta;

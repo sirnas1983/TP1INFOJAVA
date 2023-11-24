@@ -1,5 +1,6 @@
-package service.menu.cuenta;
+package menu.cuenta;
 
+import menu.banco.MenuBancoServiceImpl;
 import model.Cliente;
 import model.Cuenta;
 import model.CuentaCte;
@@ -9,8 +10,7 @@ import service.cliente.ClienteServiceImpl;
 import service.cuenta.CuentaService;
 import service.cuenta.CuentaServiceImpl;
 import input.InputService;
-import service.menu.banco.MenuBancoServiceImpl;
-import service.menu.cliente.MenuClienteImpl;
+import menu.cliente.MenuClienteImpl;
 
 import java.util.List;
 

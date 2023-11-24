@@ -1,13 +1,13 @@
-package service.menu.cliente;
+package menu.cliente;
 
+import menu.banco.MenuBancoServiceImpl;
+import menu.cuenta.MenuCuenta;
+import menu.cuenta.MenuCuentaImpl;
 import model.Cliente;
 import service.banco.BancoService;
 import service.cliente.ClienteService;
 import service.cliente.ClienteServiceImpl;
 import input.InputService;
-import service.menu.banco.MenuBancoServiceImpl;
-import service.menu.cuenta.MenuCuenta;
-import service.menu.cuenta.MenuCuentaImpl;
 
 import java.util.HashMap;
 import java.util.List;

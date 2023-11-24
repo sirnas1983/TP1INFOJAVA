@@ -1,4 +1,4 @@
-package service.menu.banco;
+package menu.banco;
 
 public interface MenuBancoService {
 

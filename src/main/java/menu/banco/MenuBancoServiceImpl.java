@@ -1,4 +1,4 @@
-package service.menu.banco;
+package menu.banco;
 
 import model.Banco;
 import service.banco.BancoService;
@@ -6,9 +6,9 @@ import service.banco.BancoServiceImpl;
 import input.InputService;
 import service.cliente.ClienteService;
 import service.cliente.ClienteServiceImpl;
-import service.menu.cliente.MenuClienteImpl;
-import service.menu.cuenta.MenuCuenta;
-import service.menu.cuenta.MenuCuentaImpl;
+import menu.cliente.MenuClienteImpl;
+import menu.cuenta.MenuCuenta;
+import menu.cuenta.MenuCuentaImpl;
 
 import java.util.Scanner;
 

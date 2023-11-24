@@ -1,6 +1,6 @@
 import model.Banco;
-import service.menu.banco.MenuBancoService;
-import service.menu.banco.MenuBancoServiceImpl;
+import menu.banco.MenuBancoService;
+import menu.banco.MenuBancoServiceImpl;
 
 public class GestionBanco {
 
