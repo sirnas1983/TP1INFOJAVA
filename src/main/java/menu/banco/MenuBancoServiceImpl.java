@@ -9,6 +9,8 @@ import service.cliente.ClienteServiceImpl;
 import menu.cliente.MenuClienteImpl;
 import menu.cuenta.MenuCuenta;
 import menu.cuenta.MenuCuentaImpl;
+import service.cuenta.CuentaService;
+import service.cuenta.CuentaServiceImpl;
 
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ public class MenuBancoServiceImpl implements MenuBancoService{
     private BancoService bancoService;
     private MenuClienteImpl menuCliente;
     private ClienteService clienteService;
+    private CuentaService cuentaService;
     private MenuCuenta menuCuenta;
     private static String TITULO = "Bienvenido al sistema de gestion bancaria";
     public static String DIVISION = "-".repeat(25);
@@ -33,8 +36,9 @@ public class MenuBancoServiceImpl implements MenuBancoService{
         String opc;
         Scanner scanner = InputService.getScanner();
         this.bancoService = new BancoServiceImpl(this.banco);
-        this.menuCliente = new MenuClienteImpl(bancoService);
+        this.menuCliente = new MenuClienteImpl(bancoService, clienteService);
         this.menuCuenta = new MenuCuentaImpl(bancoService);
+        this.cuentaService = new CuentaServiceImpl(this.banco);
         System.out.println(TITULO);
         do {
             System.out.println(DIVISION);
@@ -52,7 +56,7 @@ public class MenuBancoServiceImpl implements MenuBancoService{
             System.out.println(DIVISION);
             switch (opc){
                 case "1":
-                    bancoService.getListaClientes();
+                    bancoService.verClientes();
                     break;
                 case "2":
                     bancoService.verCuentas();
@@ -68,7 +72,7 @@ public class MenuBancoServiceImpl implements MenuBancoService{
                     menuCuenta.operarConCuenta();
                     break;
                 case "6":
-                    bancoService.exportarCuentasACsv();
+                    bancoService.exportarCuentasACsv(cuentaService);
             }
         } while(!opc.equals("0"));
     }

@@ -10,13 +10,12 @@ import menu.banco.MenuBancoServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ClienteServiceImpl implements ClienteService {
 
 
     private Scanner scanner;
-    public static String INGRESE_MONEDA_TEMPLATE = "Ingrese una moneda (PESO - DOLAR):";
-    public static String MONEDA_NO_VALIDA_TEMPLATE = "Moneda no valida, intente nuevamente";
     private Banco sucursal;
     private BancoService bancoService;
     public ClienteServiceImpl(Banco banco){
@@ -40,7 +39,7 @@ public class ClienteServiceImpl implements ClienteService {
             System.out.println(MenuBancoServiceImpl.DIVISION);
             bancoService.registrarCliente(new Cliente(nombre, apellido, domicilio, dni));
         } catch (Exception e){
-            System.out.println("Error en generación de usuario");
+            System.out.println("Error en generación de cliente");
             System.out.println("Error: " + e.toString());
             System.out.println(MenuBancoServiceImpl.DIVISION);
         }
@@ -49,45 +48,19 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void abrirCuenta(Cliente cliente) {
         CuentaService cuentaService = new CuentaServiceImpl(this.sucursal);
-        boolean ok = true;
-        do {
-            System.out.println(INGRESE_MONEDA_TEMPLATE);
-            String opc = scanner.nextLine().toUpperCase();
-            try{
-                Moneda moneda = Moneda.valueOf(opc);
-                Cuenta cuenta = cuentaService.abrirCajaAhorro(cliente, moneda);
-                cliente.getCuentas().add(cuenta);
-                ok = false;
-            } catch (IllegalArgumentException e){
-                System.out.println(MONEDA_NO_VALIDA_TEMPLATE);
-            }
-        } while (ok);
+        cuentaService.abrirCajaAhorro(this.scanner, cliente);
+    }
+
+    @Override
+    public List<Cliente> getClienteByDni(int dni) {
+        return this.sucursal.getClientes().values().stream().filter((cliente) -> cliente.getDni() == dni).collect(Collectors.toList());
     }
 
     @Override
     public void abrirCuentaCorriente(Cliente cliente) {
         CuentaService cuentaService = new CuentaServiceImpl(this.sucursal);
-        boolean ok = true;
-        do {
-            System.out.println(INGRESE_MONEDA_TEMPLATE);
-            String opc = scanner.nextLine().toUpperCase();
-            try {
-                Moneda moneda = Moneda.valueOf(opc);
-                System.out.println("Ingrese descubierto:");
-                Double descubierto = Double.parseDouble(scanner.nextLine());
-                CuentaCte cuenta = cuentaService.abrirCuentaCte(cliente, moneda, descubierto);
-                cliente.getCuentas().add(cuenta);
-                ok = false;
-            } catch (NullPointerException g){
-                System.out.println("Debe ingresar un numero");
-            } catch (NumberFormatException f){
-                System.out.println("Descubierto invalido");
-            } catch (IllegalArgumentException e){
-                System.out.println(MONEDA_NO_VALIDA_TEMPLATE);
-            }
-        } while (ok);
+        cuentaService.abrirCuentaCte(this.scanner, cliente);
     }
-
 
     @Override
     public List<Cuenta> getCuentasCliente(Cliente cliente) {

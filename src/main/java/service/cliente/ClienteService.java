@@ -15,5 +15,6 @@ public interface ClienteService {
 
     List<Cuenta> getCuentasCliente(Cliente cliente);
 
+    List<Cliente> getClienteByDni(int dni);
 
 }

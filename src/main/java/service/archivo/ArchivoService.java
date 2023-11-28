@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ArchivoService {
 
-    void ExportarCuentasACsv(List<Cuenta> cuentas, String ruta);
+    void ExportarCuentasACsv(List<Cuenta> cuentas);
 }

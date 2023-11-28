@@ -22,14 +22,16 @@ public class MenuClienteImpl implements MenuCliente{
     public static final String SIN_CLIENTES_TEMPLATE ="No hay clientes cargados";
 
     private BancoService bancoService;
+    private ClienteService clienteService;
 
-    public MenuClienteImpl(BancoService bancoService){
+    public MenuClienteImpl(BancoService bancoService, ClienteService clienteService){
         this.scanner = InputService.getScanner();
+        this.clienteService = clienteService;
         this.bancoService = bancoService;
     }
     @Override
     public void operarConCliente() {
-        bancoService.getListaClientes();
+        bancoService.verClientes();
         HashMap<Long, Cliente> clientes = bancoService.getBanco().getClientes();
         if (clientes.isEmpty()){
             System.out.println(SIN_CLIENTES_TEMPLATE);
@@ -37,7 +39,7 @@ public class MenuClienteImpl implements MenuCliente{
             System.out.println(MenuBancoServiceImpl.DIVISION);
             System.out.println(SELECCION_TEMPLATE);
             int dni = Integer.parseInt(scanner.nextLine());
-            List<Cliente> cliente = bancoService.getClienteByDni(dni);
+            List<Cliente> cliente = clienteService.getClienteByDni(dni);
             if (!cliente.isEmpty()) {
                 menuCliente(cliente.get(0));
             } else {

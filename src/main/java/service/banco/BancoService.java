@@ -1,18 +1,17 @@
 package service.banco;
 
 import model.*;
+import service.cuenta.CuentaService;
 
 import java.util.List;
 
 public interface BancoService {
 
-    void getListaClientes();
+    void verClientes();
     List<Cuenta> getListaCuentas();
-    List<Cuenta> getListaCuentasOrdenada();
-    List<Cliente> getClienteByDni(int dni);
     void registrarCliente(Cliente cliente);
     void verCuentas();
-    void exportarCuentasACsv();
+    void exportarCuentasACsv(CuentaService cs);
     Banco getBanco();
 
 

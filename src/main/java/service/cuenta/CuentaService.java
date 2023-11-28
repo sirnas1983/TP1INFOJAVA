@@ -2,10 +2,13 @@ package service.cuenta;
 
 import model.*;
 
+import java.util.List;
+import java.util.Scanner;
+
 public interface CuentaService {
 
-    CuentaAhorro abrirCajaAhorro(Cliente cliente, Moneda moneda);
-    CuentaCte abrirCuentaCte(Cliente cliente, Moneda moneda, Double descubierto);
+    void abrirCajaAhorro(Scanner scanner, Cliente cliente);
+    void abrirCuentaCte(Scanner scanner, Cliente cliente);
     void consultarSaldo(Cuenta cuenta);
     void extraerDinero(Double cant, Cuenta cuenta);
     void depositarDinero(Double cant, Cuenta cuenta);
@@ -13,4 +16,6 @@ public interface CuentaService {
     void devengarIntereses(Cuenta cuenta);
     void listarCheques(Cuenta cta);
     void borrarCuenta(Cuenta cuenta);
+    List<Cuenta> getListaCuentasOrdenada();
+
 }

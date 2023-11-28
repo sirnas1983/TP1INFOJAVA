@@ -4,8 +4,7 @@ import input.InputService;
 import model.*;
 import service.archivo.ArchivoService;
 import service.archivo.ArchivoServiceImpl;
-
-import java.util.Comparator;
+import service.cuenta.CuentaService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ public class BancoServiceImpl implements BancoService{
     }
 
     @Override
-    public void getListaClientes() {
+    public void verClientes() {
         HashMap<Long, Cliente> clientes = this.banco.getClientes();
         if (clientes.isEmpty()) {
             System.out.println(SUC_SIN_CLIENTES_TEMPLATE);
@@ -40,18 +39,6 @@ public class BancoServiceImpl implements BancoService{
         return this.banco.getCuentas();
     }
 
-    @Override
-    public List<Cuenta> getListaCuentasOrdenada() {
-        List<Cuenta> cuentas = this.getListaCuentas();
-        cuentas.sort(Comparator.comparingLong((Cuenta c) -> c.getTitular().getDni()).
-                thenComparing(Cuenta::getSaldo));
-        return cuentas;
-    }
-
-    @Override
-    public List<Cliente> getClienteByDni(int dni) {
-        return this.banco.getClientes().values().stream().filter((cliente) -> cliente.getDni() == dni).collect(Collectors.toList());
-    }
     @Override
     public void registrarCliente(Cliente cliente) {
         HashMap<Long, Cliente> clientes = this.banco.getClientes();
@@ -74,14 +61,12 @@ public class BancoServiceImpl implements BancoService{
         }
     }
     @Override
-    public void exportarCuentasACsv() {
+    public void exportarCuentasACsv(CuentaService cs) {
         if(this.getBanco().getCuentas().isEmpty()){
             System.out.println(SUC_SIN_CUENTAS_TEMPLATE);
         } else {
-            System.out.println("Ingrese nombre de archivo: ");
-            String nombreArchivo = InputService.getScanner().nextLine();
             ArchivoService archivoService = new ArchivoServiceImpl();
-            archivoService.ExportarCuentasACsv(this.getListaCuentasOrdenada(), nombreArchivo);
+            archivoService.ExportarCuentasACsv(cs.getListaCuentasOrdenada());
         }
     }
 }

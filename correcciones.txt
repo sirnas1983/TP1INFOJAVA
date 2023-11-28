@@ -1,0 +1,20 @@
+El atributo - private final Banco banco; del servicio podria ir en la clase GestionBanco.java como una variable global ya que se trata del banco. Para eso tenes que hacerla public y static.
+// El atributo private final Banco banco en realidad no lo puedo poner como variable global ya que java no me permite importar desde
+// el default package. Intente sacarlo pero no hubo caso.
+
+getListaCuentasOrdenada podria ir en el servicio de cuentas y no en banco, banco solo deberia llamar esta logica que esta en el servicio.
+// HECHO - Cambiado metodo a CuentaService
+
+getClienteByDni podria ir en el servicio cliente.
+// HECHO - Cambiado metodo a ClienteService
+
+El metodo exportarCuentasACsv de la linea 81 a 85 osea en el else, podria encargarse otra clase de eso, de obtener el nombre del archivo y que banco simplemente llame a ese metodo.
+// HECHO - Cambiado 'input' a ArchivoServiceImpl
+
+El metodo abrirCuentaCorriente que esta en cliente podria estar en cuenta. Por lo que veo en cuenta tenes un metodo que se llama igual pero lo unico que hace es setear cosas, podrias mandar toda esa logica a cuenta y que cliente se encargue de llamarlo nada mas y de hacer cosas especificas al cliente en caso de ser necesario.
+// HECHO - Se cambiaron a CuentaService tanto abrirCuentaCorriente como abrirCuenta.
+//
+
+Por lo que veo tenes errores en cuanto a la distribucion de responsabilidades, te invito a que le pegues a una repasada a las clases y a sus metodos, mantene siemrpe que puedas la cohesion en metodos. Todo lo demas lo veo perfecto, corregi lo que puedas y con eso ya estaria aprobado.
+
+// Hola profe, estuve revisando un poco mas los servicios para ver si podia mejorar algo en cuanto a la cohesion.

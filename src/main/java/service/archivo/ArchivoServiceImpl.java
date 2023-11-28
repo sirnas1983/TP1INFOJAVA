@@ -1,6 +1,7 @@
 package service.archivo;
 
 import com.opencsv.CSVWriter;
+import input.InputService;
 import model.Cuenta;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,8 +12,10 @@ public class ArchivoServiceImpl implements ArchivoService {
     private static String getCurrentProjectDirectory() {
         return new File("").getAbsolutePath() + "\\";
     }
-    public void ExportarCuentasACsv(List<Cuenta> cuentas, String nombreArchivo) {
+    public void ExportarCuentasACsv(List<Cuenta> cuentas) {
         try{
+            System.out.println("Ingrese nombre de archivo: ");
+            String nombreArchivo = InputService.getScanner().nextLine();
             String fullPath = getCurrentProjectDirectory() + nombreArchivo + ".csv";
             CSVWriter csvWriter = new CSVWriter(new FileWriter(fullPath));
             String[] encabezados = {"nro titular","nombre titular","nro cuenta","saldo","tipo","moneda"};
